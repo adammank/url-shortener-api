@@ -1,0 +1,98 @@
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "config.settings"
+python_files = ["tests.py", "test_*.py"]
+
+[tool.black]
+line-length = 88
+target-version = ["py311"]
+skip-string-normalization = false
+exclude = '''
+/(
+    \.git
+  | \.mypy_cache
+  | \.pytest_cache
+  | \.venv
+  | migrations
+  | __pycache__
+  | build
+  | dist
+)/
+'''
+
+[tool.ruff]
+target-version = "py311"
+line-length = 88
+src = ["apps", "config"]
+
+[tool.ruff.lint]
+select = [
+  "E","F","W",     # pycodestyle/pyflakes
+  "I",             # isort (import sorting)
+  "N",             # pep8-naming
+  "UP",            # pyupgrade
+  "B",             # bugbear
+  "C4",            # comprehensions
+  "DTZ",           # naive datetimes
+  "EM",            # string in exceptions
+  "ISC",           # implicit string concat
+  "G",             # logging
+  "PIE",           # misc
+  "PT",            # pytest
+  "RET",           # return statements
+  "RUF",           # ruff-specific
+  "SIM",           # simplifications
+  "S",             # security (subset of Bandit)
+  "DJ",            # django
+  "T20",           # print statements
+]
+ignore = [
+  "E501",               # let Black handle line length
+]
+fixable = ["ALL"]
+unfixable = []
+
+[tool.ruff.lint.per-file-ignores]
+"**/migrations/*.py" = ["E501","F401","F841","S","RET","SIM","RUF012"]
+"**/tests/**/*.py" = ["S101"]
+"**/tests.py" = ["S101"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["apps", "config"]
+combine-as-imports = true
+force-sort-within-sections = true
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "lf"
+docstring-code-format = true
+
+[tool.mypy]
+python_version = "3.11"
+plugins = ["mypy_django_plugin.main"]
+ignore_missing_imports = true
+show_error_codes = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+strict_optional = true
+no_implicit_optional = true
+
+[[tool.mypy.overrides]]
+module = "apps.*.tests.*"
+disallow_untyped_defs = false
+disallow_incomplete_defs = false
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+disallow_untyped_defs = false
+disallow_incomplete_defs = false
+
+[tool.django-stubs]
+django_settings_module = "config.settings"
