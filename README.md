@@ -1,9 +1,16 @@
 # Url Shortener Api
 
 This application is a URL shortener service built with Django, Django Rest Framework and PostgreSQL, 
-containerized using Docker. Provides a RESTful API for retrieving shortened URLs in both ways. 
-Includes comprehensive testing and linting setup. Is well documented by docstrings, type hints, OpenAPI 
-schema with Swagger UI, clear project structure and a Makefile with useful shortcuts.
+containerized using Docker and docker-compose.  
+
+Provides a RESTful API for retrieving shortened URLs in both ways.  
+
+Shortened URLs are unique and generated using BLAKE2s hashing algorithm with a predefined key and 
+selective characters from Base64 encoding. It ensures that the same original URL will always produce
+the same shortened URL.  
+
+Application includes comprehensive testing and linting setup. Is well documented by docstrings, type hints, OpenAPI 
+schema with Swagger UI, clear project structure and a Makefile with useful shortcuts. Follows SOLID principles.
 
 
 [![Python](https://img.shields.io/badge/Python-3.12+-3776AB.svg)](#)
